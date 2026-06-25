@@ -1,0 +1,45 @@
+name: Refresh data
+
+on:
+  schedule:
+    - cron: "0 12 * * 2"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  etl:
+    runs-on: ubuntu-latest
+    env:
+      JAGS_USE_NFLREADR: "TRUE"
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: r-lib/actions/setup-r@v2
+        with:
+          r-version: "4.4"
+          http-user-agent: "release"
+
+      - name: Install R dependencies
+        run: |
+          Rscript -e 'install.packages(c(
+            "nflreadr", "dplyr", "arrow", "lubridate",
+            "jsonlite", "yaml", "cli", "glue", "tibble"
+          ), repos = "https://cloud.r-project.org")'
+
+      - name: Run ETL
+        run: Rscript R/run_etl.R
+
+      - name: Copy artifacts to web/public
+        run: |
+          mkdir -p web/public/data
+          cp data/processed/* web/public/data/
+
+      - name: Commit updated data
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add web/public/data/
+          git diff --staged --quiet || git commit -m "chore: refresh leaderboard data"
+          git push

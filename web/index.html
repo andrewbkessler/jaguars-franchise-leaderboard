@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Jacksonville Jaguars Franchise QB Records</title>
+    <link rel="stylesheet" href="/src/style.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="header-inner">
+        <p class="eyebrow">Franchise Leaderboards</p>
+        <h1>Jacksonville Jaguars QB Records</h1>
+        <p class="subtitle">
+          Interactive franchise passing leaderboards with age, season, and split filters.
+        </p>
+        <p id="updated-at" class="updated-at"></p>
+      </div>
+    </header>
+
+    <main class="layout">
+      <section class="controls card">
+        <h2>Filters</h2>
+
+        <div class="control-grid">
+          <label>
+            Position Group
+            <input type="text" value="Quarterbacks" disabled />
+          </label>
+
+          <label for="stat-select">
+            Stat
+            <select id="stat-select"></select>
+          </label>
+
+          <label for="scope-select">
+            Scope
+            <select id="scope-select">
+              <option value="career">Franchise Career</option>
+              <option value="season">Single Season</option>
+              <option value="game">Single Game</option>
+            </select>
+          </label>
+
+          <label for="season-type">
+            Season Type
+            <select id="season-type">
+              <option value="ALL">All</option>
+              <option value="REG">Regular Season</option>
+              <option value="POST">Playoffs</option>
+            </select>
+          </label>
+
+          <label for="home-away">
+            Home / Away
+            <select id="home-away">
+              <option value="ALL">All</option>
+              <option value="HOME">Home</option>
+              <option value="AWAY">Away</option>
+            </select>
+          </label>
+
+          <label for="age-min">
+            Min Age
+            <input id="age-min" type="number" min="0" max="50" step="0.1" placeholder="Any" />
+          </label>
+
+          <label for="age-max">
+            Max Age
+            <input id="age-max" type="number" min="0" max="50" step="0.1" value="50" />
+          </label>
+
+          <label for="min-games">
+            Min Games
+            <input id="min-games" type="number" min="1" max="100" value="1" />
+          </label>
+        </div>
+
+        <div class="button-row">
+          <button id="run-btn" type="button">Update Leaderboard</button>
+          <button id="under-25-btn" type="button" class="secondary">Under 25 Preset</button>
+        </div>
+
+        <p id="status" class="status">Loading...</p>
+      </section>
+
+      <section class="results card">
+        <h2>Leaderboard</h2>
+        <div class="table-wrap">
+          <table id="leaderboard">
+            <thead></thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="methodology card">
+        <h2>Methodology</h2>
+        <ul>
+          <li>1999–present stats from nflverse via weekly player stats joined to official schedules.</li>
+          <li>1995–1998 stats supplemented from Pro-Football-Reference season passing tables.</li>
+          <li>Age filters use birth date vs. game date. Legacy 1995–1998 rows use September 1 proxy dates.</li>
+          <li>Only passing stats recorded with Jacksonville (<code>JAX</code>/<code>JAC</code>) count toward franchise records.</li>
+        </ul>
+        <details>
+          <summary>Debug SQL</summary>
+          <pre id="sql-debug"></pre>
+        </details>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <p>
+        Data:
+        <a href="https://nflreadr.nflverse.com/" target="_blank" rel="noreferrer">nflverse/nflreadr</a>
+        (CC-BY 4.0) and
+        <a href="https://www.pro-football-reference.com/teams/jax/" target="_blank" rel="noreferrer">Pro-Football-Reference</a>.
+      </p>
+    </footer>
+
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>

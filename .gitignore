@@ -1,0 +1,9 @@
+data/processed/
+data/cache/
+.Rproj.user
+renv/library/
+renv/staging/
+web/node_modules/
+web/dist/
+.DS_Store
+*.Rproj

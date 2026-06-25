@@ -1,0 +1,8 @@
+team: JAX
+team_label: Jacksonville Jaguars
+franchise_start: 1995
+nflverse_start: 1999
+pfr_team_url: https://www.pro-football-reference.com/teams/jax/
+attribution:
+  - nflverse/nflreadr (CC-BY 4.0)
+  - Pro-Football-Reference.com
